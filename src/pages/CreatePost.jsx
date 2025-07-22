@@ -21,6 +21,31 @@ function CreatePost() {
     }
  
   console.log(`Post created ${caption}, ${image}`);
+  
+  const prevPost = JSON.parse(localStorage.getItem("PostUpload")) || [];
+
+
+  function getBase64(file){
+    return new Promise((res, rej) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => res(reader.result);
+      reader.onerror = (error) => rej(error)
+    })
+  }
+  getBase64(image).then((newImage) => {
+
+    let newPost = 
+      {
+        "id": Date.now(),
+        "content": caption,
+        "image": newImage,
+      }
+    
+  
+    const updatedPost = [...prevPost, newPost]
+    localStorage.setItem("PostUpload", JSON.stringify(updatedPost))
+  })
 
   setCaption('')
   setImage(null)
