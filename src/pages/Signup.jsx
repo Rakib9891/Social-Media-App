@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Signup() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -18,6 +19,22 @@ function Signup() {
     e.preventDefault();
     console.log("Signup data", formData);
     // Here you would typically send formData to your registration API
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    // check if already exists
+
+    const userExists = users.find(u => u.email === formData.email)
+    if (userExists){
+      alert("This email already has an account ")
+      return;
+    }
+
+    // adding user to arry
+    const allUserList = [...users, formData];
+    localStorage.setItem("allUser", JSON.stringify(allUserList))
+
+    // setting current user (login)
+    localStorage.setItem("currentUser", JSON.stringify(formData))
+    navigate("/")
   }
 
   return (

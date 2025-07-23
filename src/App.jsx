@@ -10,13 +10,13 @@ import Profile from "./pages/Profile";
 import CreatePost from "./pages/CreatePost";
 
 const App = () => {
+  const user = localStorage.getItem("user")
   return (
     <Router>
       <div>
-        <Navbar /> {/* Always visible */}
-
+       { user && <Navbar /> }
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={user?<Home/>:<Login/>} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/profile/" element={<Profile />} />

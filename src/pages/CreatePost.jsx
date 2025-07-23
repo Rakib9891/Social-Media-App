@@ -25,6 +25,7 @@ function CreatePost() {
   const prevPost = JSON.parse(localStorage.getItem("PostUpload")) || [];
 
 
+  // after refresh still can see post 
   function getBase64(file){
     return new Promise((res, rej) => {
       const reader = new FileReader();
@@ -38,12 +39,12 @@ function CreatePost() {
     let newPost = 
       {
         "id": Date.now(),
+        "username":"John Doe",
         "content": caption,
         "image": newImage,
       }
-    
-  
-    const updatedPost = [...prevPost, newPost]
+        
+    const updatedPost = [ newPost, ...prevPost]
     localStorage.setItem("PostUpload", JSON.stringify(updatedPost))
   })
 
