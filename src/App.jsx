@@ -1,6 +1,6 @@
 
 import './App.css'
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
@@ -10,17 +10,19 @@ import Profile from "./pages/Profile";
 import CreatePost from "./pages/CreatePost";
 
 const App = () => {
-  const user = localStorage.getItem("user")
+  const [currentUser, setCurrentUser] = useState(() => {
+    return JSON.parse(localStorage.getItem("currentUser"))
+  })
   return (
     <Router>
       <div>
-       { user && <Navbar /> }
+       { currentUser && <Navbar /> }
         <Routes>
-          <Route path="/" element={user?<Home/>:<Login/>} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/profile/" element={<Profile />} />
-          <Route path="/create" element={<CreatePost />} />
+          <Route path="/" element={currentUser?<Home/>:<Login setCurrentUser={setCurrentUser}/>} />
+          <Route path="/login" element={<Login setCurrentUser={setCurrentUser} />} />
+          <Route path="/signup" element={<Signup setCurrentUser={setCurrentUser}/>} />
+          <Route path="/profile/" element={currentUser?<Profile />: <Login/>} />
+          <Route path="/create" element={currentUser?<CreatePost />:<Login/>} />
         </Routes>
       </div>
     </Router>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 
-function Signup() {
+function Signup({ setCurrentUser }) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
@@ -30,10 +30,11 @@ function Signup() {
 
     // adding user to arry
     const allUserList = [...users, formData];
-    localStorage.setItem("allUser", JSON.stringify(allUserList))
+    localStorage.setItem("users", JSON.stringify(allUserList))
 
     // setting current user (login)
     localStorage.setItem("currentUser", JSON.stringify(formData))
+    setCurrentUser(formData)
     navigate("/")
   }
 
@@ -41,12 +42,12 @@ function Signup() {
     <div className='max-w-md mx-auto mt-10 p-6 bg-white shadow'>
       <h2 className='text-center font-bold text-2xl mb-6'>Sign Up</h2>
       <form className='flex flex-col gap-4' onSubmit={handleSub}>
-        <input type="text" name="username" value={formData.username} onChange={handleChange} placeholder='Username' required/>
+        <input type="text" name="username" value={formData.username} onChange={handleChange} placeholder='Username' required className='input'/>
 
-        <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder='Email' required/>
+        <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder='Email' required className='input'/>
 
-        <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder='Password' required/>
-        <button className='bg-blue-500 hover:bg-blue-600 py-2 px-4 text-white rounded' type="submit">Sign Up</button>
+        <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder='Password' required className='input'/>
+        <button className='bg-blue-500 hover:bg-blue-600 py-2 px-4 text-white rounded-lg transition' type="submit">Sign Up</button>
       </form>
       <p className='mt-6 text-center text-sm'>Already have an account? <Link className='underline text-blue-600 ml-1' to="/login">Login</Link></p>
     </div>

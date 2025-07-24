@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 function CreatePost() {
+   const currentUser = JSON.parse(localStorage.getItem("currentUser"))
   const [caption, setCaption] = useState('');
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -35,11 +36,12 @@ function CreatePost() {
     })
   }
   getBase64(image).then((newImage) => {
+   
 
     let newPost = 
       {
         "id": Date.now(),
-        "username":"John Doe",
+        "username": currentUser.username,
         "content": caption,
         "image": newImage,
       }
@@ -54,27 +56,35 @@ function CreatePost() {
  }  
 
   return (
-    <div className='max-w-md mx-auto bg-white rounded shadow mt-10 p-6'>
-      <h2 className='text-2xl font-bold mb-4'>Create a Post</h2>
+    <div className='max-w-xl mx-auto bg-white rounded-xl shadow-xl mt-10 py-4 border border-gray-100'>
+      <h2 className='text-2xl text-center font-bold mb-4'>Create Post</h2>
+      <hr className='text-gray-300' />
 
+      <div className='px-6 create-post'>
+      <div className='mt-3'>
+        <span className='bg-gray-400 p-1 mr-2 rounded-full '>Pic</span>
+        <span>{currentUser.username}</span>
+      </div>
       <form className='flex flex-col gap-4' onSubmit={handleSub}>
         {/* for caption  */}
         <textarea 
+          className='textarea'
           placeholder='Write a caption...'
           value ={caption}
           onChange={(e) => setCaption(e.target.value)}
         ></textarea>
 
         {/* for image  */}
-        <input type="file" accept='image/*' onChange={handleImageChange} />
+        {preview && (<img src={preview} alt="preview" className='h-50 object-cover rounded'/>)}
+
+        <input type="file" accept='image/*' onChange={handleImageChange} className='border-gray-300 border rounded-lg shadow-md px-4 py-2'/>
 
 {/* for image preview  */}
-        {preview && (<img src={preview} alt="preview" className='h-48 object-cover rounded'/>)}
 
 {/* post button  */}
-        <button className='bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded text-white' type='submit'>Post</button>
-
+        <button className='bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg text-white' type='submit'>Post</button>
       </form>
+      </div>
     </div>
   )
 }
