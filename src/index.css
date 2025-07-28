@@ -36,3 +36,6 @@
   background: #dcdcdc;
   border-radius: 5px;
 }
+.edit{
+  z-index: 100;
+}
