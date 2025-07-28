@@ -5,7 +5,7 @@ function CreatePost() {
   const [caption, setCaption] = useState('');
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
-
+ 
   const handleImageChange = (e) => {
     const file = e.target.files[0]
     setImage(file)
@@ -62,7 +62,7 @@ function CreatePost() {
 
       <div className='px-6 create-post'>
       <div className='mt-3'>
-        <span className='bg-gray-400 p-1 mr-2 rounded-full '>Pic</span>
+          <span className='bg-gray-400 p-1 mr-2 rounded-full '>Pic</span>
         <span>{currentUser.username}</span>
       </div>
       <form className='flex flex-col gap-4' onSubmit={handleSub}>

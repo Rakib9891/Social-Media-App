@@ -52,7 +52,7 @@ function Profile() {
     }, []);
   } 
   return (
-    <div className='max-w-2xl min-h-dvh mx-auto mt-10 p-6 bg-white shadow flex flex-col justify- items-center'>
+    <div className='max-w-2xl min-h-dvh mx-auto mt-10 p-6 bg-white shadow-xl flex flex-col justify- items-center'>
       <h2 className='text-2xl font-bold text-center mb-4'>My Profile</h2>
 
       <img 
@@ -63,7 +63,7 @@ function Profile() {
         <i className="fa-solid fa-pen"></i></div>
       
       {edit && (
-        <div className='p-4 border left-260 top-1/4 shadow border-gray-200 mb-6  absolute z-1 bg-white rounded '>
+        <div className='p-4 border left-3/5 top-1/4 shadow border-gray-200 mb-6  absolute z-1 bg-white rounded '>
           <div className='flex flex-col items-start'>
             
           <button 
