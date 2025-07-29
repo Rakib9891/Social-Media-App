@@ -21,7 +21,7 @@ const App = () => {
           <Route path="/" element={currentUser?<Home/>:<Login setCurrentUser={setCurrentUser}/>} />
           <Route path="/login" element={<Login setCurrentUser={setCurrentUser} />} />
           <Route path="/signup" element={<Signup setCurrentUser={setCurrentUser}/>} />
-          <Route path="/profile/" element={currentUser?<Profile />: <Login/>} />
+          <Route path="/profile" element={currentUser?<Profile />: <Login/>} />
           <Route path="/create" element={currentUser?<CreatePost />:<Login/>} />
         </Routes>
       </div>

@@ -39,3 +39,30 @@
 .edit{
   z-index: 100;
 }
+
+/* index.css */
+
+.profile-header:hover .profile-name,
+.profile-header:hover .profile-pic {
+  transform: scale(1.05);
+  transition: all 0.2s ease-in-out;
+}
+
+.profile-header:active .profile-name,
+.profile-header:active .profile-pic {
+  transform: scale(0.98);
+  opacity: 0.9;
+  
+}
+
+/* Optional: change cursor and give a slight shadow on hover */
+.profile-pic,
+.profile-name {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.profile-pic:hover,
+.profile-name:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: rgb(0, 132, 255);
+}
