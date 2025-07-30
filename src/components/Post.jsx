@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Edit from './Edit';
 
 
-function Post({post}) {
+function Post({post, setTriggerReload}) {
 
   const profilPic = localStorage.getItem("profilePic") || null;
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ function Post({post}) {
       <img 
         onClick={() => navigate("/profile")} 
         src={profilPic ? profilPic : defaultImg} alt="Profile" 
-        className='w-10 h-10 rounded-full object-cover mt mr-2 cursor-pointer profile-pic border-sky-400 hover:border-2'
+        className='w-10 h-10 rounded-full object-cover mt mr-2 cursor-pointer profile-pic border-2 border-sky-400 hover:border-2'
         />
       <h2 
         onClick={() => navigate("/profile")} 
@@ -47,7 +47,7 @@ function Post({post}) {
         </div>)}
       
      
-      {edit && <Edit prop={setEdit}/>}
+      {edit && <Edit postId={post.id} setEdit={setEdit} setTriggerReload={setTriggerReload}/>}
 
       <p className='text-gray-600 mb-2 text-sm'>{post.content} </p>
       {post.image && <img src={post.image} alt="Post" className='mt-3 w-full max-h-[300px] rounded-lg object-cover'/>}

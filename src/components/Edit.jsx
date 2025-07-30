@@ -1,15 +1,27 @@
-import React from 'react'
+import React, { use } from 'react'
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function Edit({prop}) {
+function Edit({setEdit, postId, setTriggerReload}) {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"))
   const posts = JSON.parse(localStorage.getItem("PostUpload")) || [];
-  const userPost = posts.find(post => post.username === currentUser.username); 
+  const index = posts.findIndex(post => post.id === postId); 
+  const userPost = posts[index];
+  const navigate = useNavigate();
+
   const [caption, setCaption] = useState(userPost ? userPost.content : '');
 
   const handleSub = (e) => {
     e.preventDefault();
-    prop(false);
+    
+    if (index !== -1) {
+      posts[index].content = caption;
+      localStorage.setItem("PostUpload", JSON.stringify(posts));
+      setTriggerReload( prev => !prev);
+      // alert("Post updated successfully!");
+      navigate("/");
+    }
+    setEdit(false);
   }
 
   const handleChange = (e) => {

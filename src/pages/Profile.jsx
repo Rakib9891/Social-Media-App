@@ -1,11 +1,19 @@
 import React, { use, useState, useRef, useEffect } from 'react'
 import defaultImg from '../assets/user.png'
-
+import { useNavigate } from 'react-router-dom';
 function Profile() {
   const user = JSON.parse(localStorage.getItem('currentUser'));
   const allPosts = JSON.parse(localStorage.getItem('PostUpload')) || [];
   const userPost = allPosts.filter(post => post.username === user.username);
   const [edit, setEdit] = useState(false)
+  const nav = useNavigate();
+
+    // logout
+  const handleLogout = () => {
+    
+    localStorage.removeItem("currentUser");
+    nav("/login");
+  }
 
   // adding hooks
   const[profilePic, setProfilePic] = useState(() => localStorage.getItem("profilePic") || null)
@@ -50,9 +58,17 @@ function Profile() {
       };
 
     }, []);
+
+
+
   } 
   return (
     <div className='max-w-2xl min-h-dvh mx-auto mt-10 p-6 bg-white shadow-xl flex flex-col justify- items-center'>
+      
+      <button 
+        onClick={handleLogout}
+        className='hover:text-white relative flex items-center justify-center left-66 bottom-2 rounded-full border-red-500 hover:shadow hover:border-2 shadow-red-600 w-10 h-10 hover:bg-red-500'><i className="fa-solid fa-arrow-right-from-bracket text-xl"></i></button>
+
       <h2 className='text-2xl font-bold text-center mb-4'>My Profile</h2>
 
       <img 
@@ -85,12 +101,12 @@ function Profile() {
       <p><strong>Username: </strong>{user.username}</p>
       <p><strong>Email: </strong>{user.email}</p>
       <h3 className='text-xl font-semibold mt-10 mb-4'>My Post</h3>
-      <div className='flex flex-wrap gap-2 border border-gray-200 max-w-2xl'>
+      <div className='flex flex-wrap p-4 gap-2 border border-gray-200 max-w-2xl rounded-lg'>
       {userPost.length > 0 ?(
         userPost.map( post => (
           <div key={post.id} className=' w-max h-fit'>
             <p>{post.content}</p>
-            <img src={post.image} alt="User post" />
+            <img className='w-40' src={post.image} alt="User post" />
           </div>
         ))
       ):(
