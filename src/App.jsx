@@ -20,9 +20,15 @@ const App = () => {
        { currentUser && <Navbar /> }
         <Routes>
           <Route path="/" element={currentUser?<Home triggerReload={triggerReload} setTriggerReload={setTriggerReload}/>:<Login setCurrentUser={setCurrentUser}/>} />
+
           <Route path="/login" element={<Login setCurrentUser={setCurrentUser} />} />
+
           <Route path="/signup" element={<Signup setCurrentUser={setCurrentUser}/>} />
-          <Route path="/profile" element={currentUser?<Profile />: <Login/>} />
+
+          <Route path="/profile" element={<Profile isCurrentUser={true} />} />
+
+          <Route path="/profile/:username" element={currentUser?<Profile />: <Login/>} />
+
           <Route path="/create" element={currentUser?<CreatePost />:<Login/>} />
         </Routes>
       </div>

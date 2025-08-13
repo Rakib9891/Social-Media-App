@@ -1,10 +1,26 @@
 import React, { use, useState, useRef, useEffect } from 'react'
 import defaultImg from '../assets/user.png'
-import { useNavigate } from 'react-router-dom';
-function Profile() {
-  const user = JSON.parse(localStorage.getItem('currentUser'));
-  const allPosts = JSON.parse(localStorage.getItem('PostUpload')) || [];
-  const userPost = allPosts.filter(post => post.username === user.username);
+import { useNavigate, useParams } from 'react-router-dom';
+function Profile({ isCurrentUser = false }) {
+  const {username} = useParams()
+  const users = JSON.parse(localStorage.getItem("users") || [])
+  const curUser = JSON.parse(localStorage.getItem("currentUser"));
+
+
+  const profileUsername = isCurrentUser? curUser?.username : username;
+
+  // Find the user from the list using the username from URL
+  const user =users.find(u => u.username === profileUsername)
+
+  // show only posts from this user
+  const allPosts = JSON.parse(localStorage.getItem("PostUpload")) || []
+  const userPost = allPosts.filter(post => post.username === user?.username)
+
+  if (!user) return <p>User not found</p>;
+
+
+
+
   const [edit, setEdit] = useState(false)
   const nav = useNavigate();
 
@@ -16,13 +32,25 @@ function Profile() {
   }
 
   // adding hooks
-  const[profilePic, setProfilePic] = useState(() => localStorage.getItem("profilePic") || null)
+  const[profilePic, setProfilePic] = useState(() => user?.profilePic|| null)
   const fileInputRef = useRef(null);
 
   // to remove
 
   const handleRemove = () => {
-    localStorage.removeItem("profilePic")
+    const updatedUsers = users.map(u => {
+      if(u.email === user.email){
+        const {profilePic, ...rest} = u;
+        return rest
+      }
+      return u;
+    })
+    localStorage.setItem("users", JSON.stringify(updatedUsers))
+
+    const updatedCurrentUser = {...user};
+    delete updatedCurrentUser.profilePic;
+    localStorage.setItem("currentUser", JSON.stringify(updatedCurrentUser))
+
     setProfilePic(null);
     setEdit(false)
   };
@@ -43,14 +71,27 @@ function Profile() {
     reader.onload = () => {
       const base64 = reader.result;
       setProfilePic(base64);
-      localStorage.setItem("profilePic", base64)
+      
+      // save to users array
+      
+      const updatedUser = users.map( u => {
+      if (u.email === user.email){
+          return {...u, profilePic: base64};
+        }
+        return u;
+      })
+      localStorage.setItem("users", JSON.stringify(updatedUser));
+
+      const updatedCurrentUser = {...user, profilePic: base64};
+      localStorage.setItem("currentUser", JSON.stringify(updatedCurrentUser))
     }
 
     // for preveiw image
     reader.readAsDataURL(file);
 
     // to prevent memory leak
-    useEffect(() => {
+  } 
+      useEffect(() => {
       return () => {
         if(fileInputRef.current){
           fileInputRef.current.value = null;
@@ -58,10 +99,6 @@ function Profile() {
       };
 
     }, []);
-
-
-
-  } 
   return (
     <div className='max-w-2xl min-h-dvh mx-auto mt-10 p-6 bg-white shadow-xl flex flex-col justify- items-center'>
       
@@ -69,7 +106,7 @@ function Profile() {
         onClick={handleLogout}
         className='hover:text-white relative flex items-center justify-center left-66 bottom-2 rounded-full border-red-500 hover:shadow hover:border-2 shadow-red-600 w-10 h-10 hover:bg-red-500'><i className="fa-solid fa-arrow-right-from-bracket text-xl"></i></button>
 
-      <h2 className='text-2xl font-bold text-center mb-4'>My Profile</h2>
+      <h2 className='text-2xl font-bold text-center mb-4'>{user.username}</h2>
 
       <img 
         onClick={() => setEdit(!edit)}

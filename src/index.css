@@ -6,7 +6,7 @@
     @apply hover:text-blue-500
 }
 .input{
-    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400
+    @apply w-full px-4 py-2 rounded-2xl focus:outline-none
 }
 .textarea {
   width: 100%; /* Occupy full width of parent */

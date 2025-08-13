@@ -44,6 +44,7 @@ function CreatePost() {
         "username": currentUser.username,
         "content": caption,
         "image": newImage,
+        "profilePic": currentUser.profilePic || null,
       }
         
     const updatedPost = [ newPost, ...prevPost]
