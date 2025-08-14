@@ -112,7 +112,7 @@ function CreatePopUp({ isCurrentUser = false }) {
 
           {/* Image preview */}
           {preview && (
-            <div className="relative">
+            <div className="relative mb-4">
               <img
                 src={preview}
                 alt="preview"
