@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import addPhoto from "../assets/add_photo.png";
+import location from "../assets/location.png";
+import tag from "../assets/tag.png";
+import emoji from "../assets/emoji.png";
 import defaultImg from "../assets/user.png";
 
 function CreatePopUp({ isCurrentUser = false }) {
@@ -49,6 +52,7 @@ function CreatePopUp({ isCurrentUser = false }) {
         content: caption,
         image: newImage,
         profilePic: currentUser.profilePic || null,
+        createdAt: new Date().toLocaleString(),
       };
 
       const updatedPost = [newPost, ...prevPost];
@@ -90,8 +94,8 @@ function CreatePopUp({ isCurrentUser = false }) {
             setIsActive(false);
           }}
           style={{ display: isActive ? "inline-block" : "none" }}
-          className={`relative -top-12 left-132
-          hover:bg-red-500 hover:text-white`}
+          className={`relative -top-16.5 left-156
+          hover:bg-gray-400 hover:text-white p-1 border border-gray-300 w-30`}
         >
           <i className="fa-solid fa-xmark "></i>
         </span>
@@ -123,35 +127,73 @@ function CreatePopUp({ isCurrentUser = false }) {
               </button>
             </div>
           )}
-          <div className="flex justify-between">
+          <div className="flex w-100%">
             {/* File upload */}
-            <label
-              htmlFor="fileInput"
-              className="flex items-center cursor-pointer hover:bg-gray-100 transition rounded-lg"
-            >
+            <div className="btns-con">
+              <label
+                htmlFor="fileInput"
+                className="flex items-center cursor-pointer hover:bg-gray-100 transition rounded-lg"
+              >
+                <input
+                  id="fileInput"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="hidden "
+                />
+                <span
+                  className="btns text-gray-600 p-2 font-medium w-10 h-10"
+                  style={{
+                    backgroundImage: `url(${addPhoto})`,
+                    backgroundRepeat: `no-repeat`,
+                    backgroundSize: `cover`,
+                  }}
+                ></span>
+              </label>
+            </div>
+
+            <div className="btns-con">
               <span
-                className="text-gray-600 p-2 font-medium w-10 h-10"
+                className="btns text-gray-600 p-2 font-medium w-10 h-10"
                 style={{
-                  backgroundImage: `url(${addPhoto})`,
+                  backgroundImage: `url(${emoji})`,
                   backgroundRepeat: `no-repeat`,
+                  backgroundSize: `cover`,
                 }}
               ></span>
-              <input
-                id="fileInput"
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-                className="hidden"
-              />
-            </label>
+            </div>
 
-            {/* Post button */}
-            <button
-              type="submit"
-              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold transition"
-            >
-              Post
-            </button>
+            <div className="btns-con">
+              <span
+                className="btns text-gray-600 p-2 font-medium w-8 h-8"
+                style={{
+                  backgroundImage: `url(${location})`,
+                  backgroundRepeat: `no-repeat`,
+                  backgroundSize: `cover`,
+                }}
+              ></span>
+            </div>
+
+            <div className="btns-con">
+              <span
+                className="btns text-gray-600 p-2 font-medium w-10 h-10"
+                style={{
+                  backgroundImage: `url(${tag})`,
+                  backgroundRepeat: `no-repeat`,
+                  backgroundSize: `cover`,
+                }}
+              ></span>
+            </div>
+
+            <div id="post-btn" className="btns-con ">
+              {/* Post button */}
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold transition "
+              >
+                Post
+              </button>
+            </div>
           </div>
         </form>
       </div>

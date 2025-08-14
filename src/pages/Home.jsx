@@ -16,7 +16,7 @@ function Home({ triggerReload, setTriggerReload }) {
     <>
       <CreatePopUp />
       {posts.length > 0 ? (
-        <div className="max-w-2xl mx-auto mt-6">
+        <div className="max-w-2xl mx-auto mt-6 ">
           {posts.map((post) => (
             <Post
               key={post.id}

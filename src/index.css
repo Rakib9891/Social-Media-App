@@ -74,8 +74,19 @@
 }
 
 .postUloadpoup1{
-  @apply w-xl mx-auto  p-4  my-6 border border-gray-300 shadow-2xl rounded-2xl absolute top-40 left-1/2 -translate-x-1/2 z-10 bg-white;
+  @apply w-2xl mx-auto  p-4  my-6 border border-gray-300 shadow-2xl rounded-2xl absolute top-40 left-1/2 -translate-x-1/2 z-10 bg-white transition duration-300 ease-in-out overflow-hidden;
 }
 .postUloadpoup2{
-  @apply max-w-xl mx-auto p-4  my-6 border border-gray-300 shadow rounded-2xl
+  @apply max-w-xl mx-auto p-4  my-6 border border-gray-300 shadow rounded-2xl transition duration-300 ease-in-out overflow-hidden
+}
+.btns-con:hover{
+  background-color: #e4e4e4; /* Lighter background on hover */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+#post-btn:hover {
+  background-color: transparent;
+} 
+.btns-con {
+  @apply w-1/5 flex justify-center items-center;
 }
