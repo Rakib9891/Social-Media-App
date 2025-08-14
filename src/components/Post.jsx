@@ -15,12 +15,20 @@ function Post({ post, setTriggerReload }) {
   const [edit, setEdit] = useState(false);
   const [like, setLike] = useState(false);
 
-  const handleDelete = () => {};
+  const handleDelete = () => {
+    const posts = JSON.parse(localStorage.getItem("PostUpload")) || [];
+    // filtering without the delete post
+    const updatedPost = posts.filter((p) => String(p.id) !== String(post.id));
+    // updatin on local Storage
+    localStorage.setItem("PostUpload", JSON.stringify(updatedPost));
+    setTriggerReload((prev) => !prev);
+  };
+
   const handleLike = () => {
     setLike(!like);
   };
   return (
-    <div className="mx-auto relative max-w-xl bg-white shadow-md rounded-xl p-4  mb-6">
+    <div className="mx-auto relative max-w-xl bg-white border border-gray-300 shadow-md rounded-xl p-4  mb-6">
       <div className="flex items-center mb-6">
         <div className="flex items-center w-2/3">
           <img
@@ -106,7 +114,7 @@ function Post({ post, setTriggerReload }) {
         <button onClick={handleLike} className="w-1/3">
           <i
             className={`fa-solid fa-thumbs-up text-xl  rounded-full ${
-              like ? "text-sky-500":"text-gray-400"
+              like ? "text-sky-500" : "text-gray-400"
             }`}
           ></i>{" "}
         </button>
