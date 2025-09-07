@@ -8,7 +8,7 @@ function Navbar() {
   return (
     <header className="flex justify-between items-center px-2 py-1 bg-white shadow fixed top-0 left-0 right-0 z-50">
       <NavLink to="/" className={"logo text-xl font-bold"}>
-        <p className="text-blue-500">My App</p>
+        <p className="text-blue-500 hidden lg:block">My App</p>
       </NavLink>
 
       <nav className="flex space-x-6 text-sm font-medium text-gray-700">
