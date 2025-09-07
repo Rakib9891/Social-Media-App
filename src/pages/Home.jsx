@@ -2,6 +2,7 @@ import React, { use, useEffect, useState } from "react";
 import Post from "../components/Post";
 import CreatePost from "./CreatePost";
 import CreatePopUp from "../components/CreatePopUp";
+import { Link } from "react-router-dom";
 
 function Home({ triggerReload, setTriggerReload }) {
   const [posts, setPosts] = useState([]);
@@ -21,7 +22,7 @@ function Home({ triggerReload, setTriggerReload }) {
       {/* Mobile Menu Button */}
       <button 
         onClick={toggleSidebar}
-        className="lg:hidden fixed top-[10px] left-4 z-130 bg-white p-2 rounded-lg shadow-md"
+        className="lg:hidden fixed top-[10px] left-4 z-130 bg-white p-2 rounded-lg "
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -58,9 +59,11 @@ function Home({ triggerReload, setTriggerReload }) {
         </div>
         
         <ul className="space-y-2">
+            <Link to={"/profile"}>
           <li className="aside-items p-3 hover:bg-gray-100 rounded-lg cursor-pointer transition-colors">
             Profile
           </li>
+            </Link>
           <li className="aside-items p-3 hover:bg-gray-100 rounded-lg cursor-pointer transition-colors">
             Friends
           </li>
